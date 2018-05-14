@@ -142,8 +142,8 @@ namespace EventsReminder.ViewModel
                 return true;
             }
             EmailSentSuccessful = false;
+            Console.WriteLine("Error sending email (Subject = " + "TestEmail" + "): " + result);
             MessageBox.Show(result, "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
-            Console.WriteLine("Error sending email : " + result);
             return false;
         }
     }

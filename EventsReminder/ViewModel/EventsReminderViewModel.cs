@@ -119,7 +119,7 @@ namespace EventsReminder.ViewModel
                     }
                     else
                     {
-                        Console.WriteLine("Error sending email : " + result);
+                        Console.WriteLine("Error sending email (Subject = " + item.Subject + "): " + result);
                     }
                 }
                 item.RefreshTimeToStart();
