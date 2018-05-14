@@ -1,9 +1,11 @@
 ﻿using EventsReminder.Models;
+using EventsReminder.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -131,13 +133,15 @@ namespace EventsReminder.ViewModel
         }
         public bool SendEmailButton_Click()
         {
-            string result = "";// SendEmail.Send(this.SmtpClient, "morteza88@live.com", "TestEmail", "This Email send by WpfAAppSample1 for test.");
+            string result = SendEmail.Send(this.SmtpClient, "morteza88@live.com", "TestEmail", "This Email send by WpfAAppSample1 for test.");
             if (result == "Sent Successfully")
             {
                 EmailSentSuccessful = true;
+                Refresh();
+                return true;
             }
             EmailSentSuccessful = false;
-            //MessageBox.Show(result, "Error");
+            MessageBox.Show(result, "Error");
             return false;
         }
     }
