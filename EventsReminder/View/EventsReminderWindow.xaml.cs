@@ -25,8 +25,17 @@ namespace EventsReminder.View
         public EventsReminderWindow()
         {
             InitializeComponent();
+
+            TextBoxOutputter outputter;
+            InitializeComponent();
+            outputter = new TextBoxOutputter(TestBox);
+            Console.SetOut(outputter);
+            Console.WriteLine("Events reminder app started.");
+
             EventDB.init();
             IEnumerable<EventModel> eventModels = EventDB.selectAll();
+            Console.WriteLine("Events loaded from LiteDB.");
+
             this.EventsReminderView = new EventsReminderViewModel(eventModels);
         }
         public EventsReminderViewModel EventsReminderView
@@ -39,6 +48,11 @@ namespace EventsReminder.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void TestBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TestBox.ScrollToEnd();
         }
     }
 }

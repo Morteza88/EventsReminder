@@ -33,6 +33,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid>
@@ -65,7 +66,9 @@
         <ListView Grid.Row="2" Background="Transparent" BorderThickness="0" ItemsSource="{Binding EventsReminderView.Events, ElementName=ManageWindow}" ItemTemplate="{StaticResource  EventsTemmplate}">
 
         </ListView>
-        <Button Grid.Row="1" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="71,317,0,0" Click="Button_Click"/>
+
+        <Button Grid.Row="1" Content="Buttondfsdf" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="71,317,0,0" Click="Button_Click"/>
+        <TextBox Grid.Row="3"  x:Name="TestBox" TextChanged="TestBox_TextChanged" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Left" Height="119" Margin="123,12,0,-123" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
 
     </Grid>
 </Window>
