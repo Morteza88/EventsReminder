@@ -17,37 +17,35 @@ using System.Windows.Shapes;
 namespace EventsReminder.View
 {
     /// <summary>
-    /// Interaction logic for SmtpClientWindow.xaml
+    /// Interaction logic for EventWindow.xaml
     /// </summary>
-    public partial class SmtpClientWindow : Window
+    public partial class EventWindow : Window
     {
-        private SmtpClientModel currentSmtpClientModel { get; set; }
-        public SmtpClientWindow(SmtpClientModel smtpClientModel = null)
+        private EventModel currentEventModel { get; set; }
+        public EventWindow(EventModel eventModel)
         {
             InitializeComponent();
-            if (smtpClientModel != null)
+            if (eventModel != null)
             {
-                currentSmtpClientModel = new SmtpClientModel(smtpClientModel.Host, smtpClientModel.Email, smtpClientModel.Password, smtpClientModel.EmailSentSuccessful);
+                currentEventModel = new EventModel(eventModel.Subject, eventModel.EmailToRecall, eventModel.EmailSentSuccessful, eventModel.StartDateTime,eventModel.Description);
             }
             else
             {
-                currentSmtpClientModel = new SmtpClientModel("","","",false);
+                currentEventModel = new EventModel("", "", false, DateTime.Now, "");
             }
-            this.SmtpClienView = new SmtpClientViewModel(currentSmtpClientModel);
-
+            this.EventView = new EventViewModel(currentEventModel);
         }
-        public SmtpClientViewModel SmtpClienView
+        public EventViewModel EventView
         {
-            get { return (SmtpClientViewModel)GetValue(EventViewProperty); }
+            get { return (EventViewModel)GetValue(EventViewProperty); }
             set { SetValue(EventViewProperty, value); }
         }
-        public static DependencyProperty EventViewProperty = DependencyProperty.Register("SmtpClienView", typeof(SmtpClientViewModel), typeof(SmtpClientWindow), null);
-        
-        public bool? ShowDialog(out SmtpClientModel newSmtpClientModel)
+        public static DependencyProperty EventViewProperty = DependencyProperty.Register("EventView", typeof(EventViewModel), typeof(EventWindow), null);
+        public bool? ShowDialog(out EventModel newEventModel)
         {
             DialogResult = false;
             ShowDialog();
-            newSmtpClientModel = currentSmtpClientModel;
+            newEventModel = currentEventModel;
             return DialogResult;
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)

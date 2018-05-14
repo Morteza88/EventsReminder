@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventsReminder.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace EventsReminder
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SmtpClientWindow w = new SmtpClientWindow();
+            w.Show();
         }
     }
 }

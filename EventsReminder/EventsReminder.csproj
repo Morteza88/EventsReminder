@@ -55,7 +55,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\EventViewModel.cs" />
     <Compile Include="ViewModel\SmtpClientViewModel.cs" />
+    <Compile Include="View\EventWindow.xaml.cs">
+      <DependentUpon>EventWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SmtpClientWindow.xaml.cs">
       <DependentUpon>SmtpClientWindow.xaml</DependentUpon>
     </Compile>
@@ -71,6 +75,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\EventWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SmtpClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
