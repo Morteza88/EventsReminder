@@ -87,6 +87,7 @@ namespace EventsReminder.ViewModel
         {
             SmtpClientDB.init();
             smtpClient = SmtpClientDB.DefualtSmtpClientModel;
+            Console.WriteLine("smtpClient loaded from LiteDB successfully");
             Events = new ObservableCollection<EventViewModel>();
             foreach (var item in eventModels)
             {
@@ -114,6 +115,11 @@ namespace EventsReminder.ViewModel
                         item.EmailSentSuccessful = true;
                         EventDB.update(item.EventModel);
                         item.Refresh();
+                        Console.WriteLine("Email has been sent successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error sending email : " + result);
                     }
                 }
                 item.RefreshTimeToStart();
@@ -142,6 +148,7 @@ namespace EventsReminder.ViewModel
             if (addEventWindow.ShowDialog(out newModel) == true)
             {
                 EventDB.insert(newModel);
+                Console.WriteLine("newModel inserted to LiteDB successfully");
                 return true;
             }
             return false;
@@ -159,6 +166,7 @@ namespace EventsReminder.ViewModel
                 smtpClient.IsDefualt = true;
                 RefreshColorsAndContents();
                 SmtpClientDB.update(smtpClient);
+                Console.WriteLine("smtpClient update to LiteDB successfully");
                 return true;
             }
             return false;
@@ -169,15 +177,17 @@ namespace EventsReminder.ViewModel
             {
                 ServiceTimer.Stop();
                 ServiceStarted = false;
+                Console.WriteLine("service stoped");
             }
             else if (smtpClient.EmailSentSuccessful)
             {
                 ServiceTimer.Start();
                 ServiceStarted = true;
+                Console.WriteLine("service is runnig . . .");
             }
             else
             {
-                MessageBox.Show("Please test MstpClient first.");
+                MessageBox.Show( "Please edit your MstpClient.", "Warning",MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             RefreshColorsAndContents();
         }

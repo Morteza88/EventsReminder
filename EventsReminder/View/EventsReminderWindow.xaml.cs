@@ -30,11 +30,11 @@ namespace EventsReminder.View
             InitializeComponent();
             outputter = new TextBoxOutputter(TestBox);
             Console.SetOut(outputter);
-            Console.WriteLine("Events reminder app started.");
+            Console.WriteLine("EventsReminder app started");
 
             EventDB.init();
             IEnumerable<EventModel> eventModels = EventDB.selectAll();
-            Console.WriteLine("Events loaded from LiteDB.");
+            Console.WriteLine("Events loaded from LiteDB successfully");
 
             this.EventsReminderView = new EventsReminderViewModel(eventModels);
         }

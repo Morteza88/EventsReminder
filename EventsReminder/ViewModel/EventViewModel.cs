@@ -152,6 +152,7 @@ namespace EventsReminder.ViewModel
                 eventModel.EmailSentSuccessful = newModel.EmailSentSuccessful;
                 Refresh();
                 EventDB.update(eventModel);
+                Console.WriteLine("eventModel (Subject = "+eventModel.Subject+") updated successfully");
                 return true;
             }
             return false;
@@ -162,6 +163,7 @@ namespace EventsReminder.ViewModel
             {
                 EventDB.delete(eventModel);
                 if (Parent != null) ((EventsReminderViewModel)Parent).Refresh(EventDB.selectAll());
+                Console.WriteLine("eventModel (Subject = " + eventModel.Subject + ") delete successfully");
                 return true;
             }
             return false;

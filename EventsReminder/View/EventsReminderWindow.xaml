@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EventsReminder.View"
         mc:Ignorable="d"
         x:Name="ManageWindow"
-        Title="EventsReminderWindow" Height="450" Width="820">
+        Title="EventsReminderWindow" Height="540" Width="832">
     <Window.Resources>
         <DataTemplate x:Key="EventsTemmplate">
             <Grid Background="{Binding BackgroundColor}">
@@ -33,7 +33,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="220"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid>
@@ -68,7 +68,7 @@
         </ListView>
 
         <Button Grid.Row="1" Content="Buttondfsdf" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="71,317,0,0" Click="Button_Click"/>
-        <TextBox Grid.Row="3"  x:Name="TestBox" TextChanged="TestBox_TextChanged" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Left" Height="119" Margin="123,12,0,-123" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
+        <TextBox Grid.Row="3"  x:Name="TestBox" TextChanged="TestBox_TextChanged" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Left" Height="119" Margin="123,12,0,-123" TextWrapping="Wrap" VerticalAlignment="Top" Width="570"/>
 
     </Grid>
 </Window>

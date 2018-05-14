@@ -111,7 +111,7 @@ namespace EventsReminder.ViewModel
                 }
                 else
                 {
-                    return " Send Email For Test ";
+                    return " Send Email to someone for test ";
                 }
             }
         }
@@ -138,10 +138,12 @@ namespace EventsReminder.ViewModel
             {
                 EmailSentSuccessful = true;
                 Refresh();
+                Console.WriteLine("Email (Subject = " + "TestEmail" + ") has been sent successfully");
                 return true;
             }
             EmailSentSuccessful = false;
-            MessageBox.Show(result, "Error");
+            MessageBox.Show(result, "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
+            Console.WriteLine("Error sending email : " + result);
             return false;
         }
     }
