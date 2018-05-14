@@ -61,6 +61,7 @@
     <Compile Include="Utility\SendEmail.cs" />
     <Compile Include="Utility\SmtpClientDB.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\EventsReminderViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
     <Compile Include="ViewModel\SmtpClientViewModel.cs" />
     <Compile Include="View\EventWindow.xaml.cs">

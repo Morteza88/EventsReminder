@@ -22,7 +22,7 @@ namespace EventsReminder.View
     public partial class EventWindow : Window
     {
         private EventModel currentEventModel { get; set; }
-        public EventWindow(EventModel eventModel)
+        public EventWindow(EventModel eventModel = null)
         {
             InitializeComponent();
             if (eventModel != null)

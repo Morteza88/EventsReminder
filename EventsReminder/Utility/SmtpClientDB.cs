@@ -22,7 +22,7 @@ namespace EventsReminder.Utility
                 insert(DefualtSmtpClientModel);
             }
         }
-        public static void insert(SmtpClientModel smtpClient)
+        private static void insert(SmtpClientModel smtpClient)
         {
             using (var db = new LiteDatabase(DbFileName))
             {
@@ -35,7 +35,7 @@ namespace EventsReminder.Utility
             using (var db = new LiteDatabase(DbFileName))
             {
                 var smtpClients = db.GetCollection<SmtpClientModel>("smtpClients");
-                var results = smtpClients.Find(x => x.EmailSentSuccessful).ToList();
+                var results = smtpClients.FindAll().ToList();
                 if (results.Count == 1)
                 {
                     return results[0];
@@ -43,7 +43,7 @@ namespace EventsReminder.Utility
                 return null;
             }
         }
-        public static IEnumerable<SmtpClientModel> selectAll()
+        private static IEnumerable<SmtpClientModel> selectAll()
         {
             using (var db = new LiteDatabase(DbFileName))
             {
@@ -51,7 +51,7 @@ namespace EventsReminder.Utility
                 return smtpClients.FindAll();
             }
         }
-        public static void delete(SmtpClientModel smtpClient)
+        private static void delete(SmtpClientModel smtpClient)
         {
             using (var db = new LiteDatabase(DbFileName))
             {
