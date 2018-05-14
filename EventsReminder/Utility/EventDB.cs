@@ -10,6 +10,7 @@ namespace EventsReminder.Utility
 {
     public class EventDB
     {
+
         private static string DbFileName;
         public static void init(string dbFileName = @"MyEvents.db")
         {

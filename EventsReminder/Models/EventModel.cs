@@ -15,7 +15,7 @@ namespace EventsReminder.Models
         public DateTime StartDateTime { get; set; }
         public string Description { get; set; }
 
-        public EventModel() { }
+        public EventModel() { }     //An empty constructor is needed to create a new instance of LiteDatabase.
         public EventModel(string subject, string emailToRecall, bool emailSentSuccessful, DateTime startDateTime, string description)
         {
             Subject = subject;

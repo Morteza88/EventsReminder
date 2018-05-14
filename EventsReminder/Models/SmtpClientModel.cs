@@ -14,7 +14,8 @@ namespace EventsReminder.Models
         public string Password { get; set; }
         public bool EmailSentSuccessful { get; set; }
         public bool IsDefualt { get; set; }
-        public SmtpClientModel() { }
+
+        public SmtpClientModel() { }    //An empty constructor is needed to create a new instance of LiteDatabase.
         public SmtpClientModel(string host, string email, string password, bool emailSentSuccessful)
         {
             Host = host;
