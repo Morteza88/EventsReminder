@@ -1,4 +1,5 @@
 ﻿using EventsReminder.Models;
+using EventsReminder.Utility;
 using EventsReminder.View;
 using System;
 using System.Collections.Generic;
@@ -150,7 +151,7 @@ namespace EventsReminder.ViewModel
                 eventModel.Description = newModel.Description;
                 eventModel.EmailSentSuccessful = newModel.EmailSentSuccessful;
                 Refresh();
-                //EventDB.update(eventModel);
+                EventDB.update(eventModel);
                 return true;
             }
             return false;
@@ -159,8 +160,8 @@ namespace EventsReminder.ViewModel
         {
             if (MessageBox.Show("Are you sure to delete this event?", "Delete Event", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                //EventDB.delete(eventModel);
-                //if (Parent != null) ((ManageEventsViewModel)Parent).Refresh(EventDB.selectAll());
+                EventDB.delete(eventModel);
+                if (Parent != null) ((EventsReminderViewModel)Parent).Refresh(EventDB.selectAll());
                 return true;
             }
             return false;

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EventsReminder.View"
         mc:Ignorable="d"
         x:Name="ManageWindow"
-        Title="EventsReminderWindow" Height="450" Width="800">
+        Title="EventsReminderWindow" Height="450" Width="820">
     <Window.Resources>
         <DataTemplate x:Key="EventsTemmplate">
             <Grid Background="{Binding BackgroundColor}">

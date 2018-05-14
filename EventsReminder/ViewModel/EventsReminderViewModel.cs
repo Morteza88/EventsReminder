@@ -156,6 +156,7 @@ namespace EventsReminder.ViewModel
                 smtpClient.Email = newSmtpClientModel.Email;
                 smtpClient.Password = newSmtpClientModel.Password;
                 smtpClient.EmailSentSuccessful = newSmtpClientModel.EmailSentSuccessful;
+                smtpClient.IsDefualt = true;
                 RefreshColorsAndContents();
                 SmtpClientDB.update(smtpClient);
                 return true;

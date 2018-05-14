@@ -43,7 +43,7 @@ namespace EventsReminder.View
         public static DependencyProperty EventViewProperty = DependencyProperty.Register("EventView", typeof(EventViewModel), typeof(EventWindow), null);
         public bool? ShowDialog(out EventModel newEventModel)
         {
-            DialogResult = false;
+            //DialogResult = false;
             ShowDialog();
             newEventModel = currentEventModel;
             return DialogResult;

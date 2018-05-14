@@ -19,6 +19,7 @@ namespace EventsReminder.Utility
             if (DefualtSmtpClientModel == null)
             {
                 DefualtSmtpClientModel = new SmtpClientModel("smpt host", "sender Id (Email)", "password", false);
+                DefualtSmtpClientModel.IsDefualt = true; // TODO: for more than one smtpClient
                 insert(DefualtSmtpClientModel);
             }
         }
