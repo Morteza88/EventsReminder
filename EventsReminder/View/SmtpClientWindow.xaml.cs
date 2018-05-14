@@ -45,7 +45,7 @@ namespace EventsReminder.View
         
         public bool? ShowDialog(out SmtpClientModel newSmtpClientModel)
         {
-            DialogResult = false;
+            //DialogResult = false;
             ShowDialog();
             newSmtpClientModel = currentSmtpClientModel;
             return DialogResult;

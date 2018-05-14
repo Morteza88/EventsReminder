@@ -1,0 +1,71 @@
+﻿<Window x:Class="EventsReminder.View.EventsReminderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventsReminder.View"
+        mc:Ignorable="d"
+        x:Name="ManageWindow"
+        Title="EventsReminderWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="EventsTemmplate">
+            <Grid Background="{Binding BackgroundColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="140" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Padding="5,0" Text="{Binding Subject}"/>
+                <TextBlock Grid.Column="1" Padding="5,0" Text="{Binding Email}"/>
+                <TextBlock Grid.Column="2" Padding="5,0" Text="{Binding Date}"/>
+                <TextBlock Grid.Column="3" Padding="5,0" Text="{Binding TimetoStart}"/>
+                <CheckBox  Grid.Column="4" Margin="5,0" Content="Email sent successful" IsEnabled="False" IsChecked="{Binding EmailSentSuccessful}"/>
+                <Button    Grid.Column="5" Margin="5,0" Content="Edit"   Command="{Binding EventsReminderView.EditButtonInCommand, ElementName=ManageWindow}"   CommandParameter="{Binding Self}"/>
+                <Button    Grid.Column="6" Margin="5,0" Content="Delete" Command="{Binding EventsReminderView.DeleteButtonInCommand, ElementName=ManageWindow}" CommandParameter="{Binding Self}"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Button Content="Add New Event" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="100" Command="{Binding EventsReminderView.AddButtonInCommand, ElementName=ManageWindow}" CommandParameter="{Binding EventsReminderView ,ElementName=ManageWindow}"/>
+            <Button Content="Edit Smtp Client" Background="{Binding EventsReminderView.SmtpColor, ElementName=ManageWindow}" HorizontalAlignment="Left" Margin="648,71,0,0" VerticalAlignment="Top" Width="134" Command="{Binding EventsReminderView.EditSmtpClientButtonInCommand, ElementName=ManageWindow}" CommandParameter="{Binding EventsReminderView ,ElementName=ManageWindow}"/>
+            <Button Content="{Binding EventsReminderView.RunServerButtonContent , ElementName=ManageWindow}" HorizontalAlignment="Left" Margin="146,71,0,0" VerticalAlignment="Top" Width="134" Command="{Binding EventsReminderView.ERunServiceButtonInCommand, ElementName=ManageWindow}" CommandParameter="{Binding EventsReminderView ,ElementName=ManageWindow}" Height="20"/>
+            <TextBlock Background="{Binding EventsReminderView.ServiceColor, ElementName=ManageWindow}" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding EventsReminderView.ServiceStatus ,ElementName=ManageWindow}" VerticalAlignment="Top" Margin="413,73,0,0"/>
+
+
+        </Grid>
+        <Grid Grid.Row="1" Background="LightBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="160" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="55" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Padding="20,5" Grid.Column="0" Text="Subject"/>
+            <TextBlock Padding="20,5" Grid.Column="1" Text="Email"/>
+            <TextBlock Padding="20,5" Grid.Column="2" Text="Date"/>
+            <TextBlock Padding="20,5" Grid.Column="3" Text="Time to Start"/>
+            <TextBlock Padding="20,5" Grid.Column="4" Text="Email sent successful"/>
+            <TextBlock Padding="20,5" Grid.Column="5" Text="Edit"/>
+            <TextBlock Padding="20,5" Grid.Column="6" Text="Delete"/>
+
+        </Grid>
+        <ListView Grid.Row="2" Background="Transparent" BorderThickness="0" ItemsSource="{Binding EventsReminderView.Events, ElementName=ManageWindow}" ItemTemplate="{StaticResource  EventsTemmplate}">
+
+        </ListView>
+        <Button Grid.Row="1" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="71,317,0,0" Click="Button_Click"/>
+
+    </Grid>
+</Window>

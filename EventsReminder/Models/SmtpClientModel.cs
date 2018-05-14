@@ -13,6 +13,7 @@ namespace EventsReminder.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public bool EmailSentSuccessful { get; set; }
+        public bool IsDefualt { get; set; }
 
         public SmtpClientModel(string host, string email, string password, bool emailSentSuccessful)
         {

@@ -28,7 +28,7 @@ namespace EventsReminder
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SmtpClientWindow w = new SmtpClientWindow();
+            EventsReminderWindow w = new EventsReminderWindow();
             w.Show();
         }
     }

@@ -64,6 +64,9 @@
     <Compile Include="ViewModel\EventsReminderViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
     <Compile Include="ViewModel\SmtpClientViewModel.cs" />
+    <Compile Include="View\EventsReminderWindow.xaml.cs">
+      <DependentUpon>EventsReminderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EventWindow.xaml.cs">
       <DependentUpon>EventWindow.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\EventsReminderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EventWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
