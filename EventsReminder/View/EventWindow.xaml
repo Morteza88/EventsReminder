@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EventsReminder.View"
         mc:Ignorable="d"
-        Title="EventWindow" Height="450" Width="800">
+        x:Name="Event"
+        Title="EventWindow" Height="280" Width="520">
     <Grid>
-        
+        <Label Content="Subject :"         HorizontalAlignment="Left" Margin="47,11,0,0"  VerticalAlignment="Top"/>
+        <Label Content="Email to recall :" HorizontalAlignment="Left" Margin="12,39,0,0"  VerticalAlignment="Top"/>
+        <Label Content="Date :"            HorizontalAlignment="Left" Margin="60,68,0,0"  VerticalAlignment="Top"/>
+        <Label Content="Time :"            HorizontalAlignment="Left" Margin="300,68,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description :"     HorizontalAlignment="Left" Margin="26,95,0,0"  VerticalAlignment="Top"/>
+        <TextBox Text="{Binding EventView.Subject, ElementName=Event}" HorizontalAlignment="Left" Height="23" Margin="107,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="376"/>
+        <TextBox Text="{Binding EventView.Email, ElementName=Event}"   HorizontalAlignment="Left" Height="23" Margin="107,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241"/>
+        <CheckBox Content="Email sent successful" IsChecked="{Binding EventView.EmailSentSuccessful, ElementName=Event}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="353,45,0,0"/>
+        <DatePicker DisplayDate="{Binding EventView.Date, ElementName=Event}" Text="{Binding EventView.Date, ElementName=Event}" HorizontalAlignment="Left" Margin="107,70,0,0" VerticalAlignment="Top" Width="179"/>
+        <TextBox Text="{Binding EventView.Time, ElementName=Event}"    HorizontalAlignment="Left" Height="23" Margin="348,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <RichTextBox HorizontalAlignment="Left" Height="100" Margin="107,99,0,0" VerticalAlignment="Top" Width="376">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="{Binding EventView.Description, ElementName=Event}"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" Margin="107,204,0,0"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="CancelButton_Click" Margin="211,204,0,0"/>
     </Grid>
 </Window>

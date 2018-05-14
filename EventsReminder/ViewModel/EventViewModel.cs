@@ -63,7 +63,6 @@ namespace EventsReminder.ViewModel
                 return timetoStart.Seconds + (timetoStart.Seconds == 1 ? " Second" : " Seconds");
             }
         }
-
         public bool Less1hourToStart
         {
             get
@@ -117,6 +116,7 @@ namespace EventsReminder.ViewModel
                 }
             }
         }
+
         public EventViewModel(EventModel eventModel, object parent = null)
         {
             this.eventModel = eventModel;
@@ -133,7 +133,6 @@ namespace EventsReminder.ViewModel
             RaisePropertyChanged("Description");
             RaisePropertyChanged("EmailSentSuccessful");
         }
-
         internal void RefreshTimeToStart()
         {
             RaisePropertyChanged("TimetoStart");
