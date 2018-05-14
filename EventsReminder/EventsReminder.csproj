@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Utility\EventDB.cs" />
     <Compile Include="Utility\SendEmail.cs" />
+    <Compile Include="Utility\SmtpClientDB.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
     <Compile Include="ViewModel\SmtpClientViewModel.cs" />
