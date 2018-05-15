@@ -34,7 +34,7 @@ namespace EventsReminder.View
 
             EventDB.init();
             IEnumerable<EventModel> eventModels = EventDB.selectAll();
-            Console.WriteLine("Events loaded from LiteDB");
+            Console.WriteLine("Events (Count="+ eventModels.ToList().Count + ") loaded from LiteDB");
 
             this.EventsReminderView = new EventsReminderViewModel(eventModels);
         }
