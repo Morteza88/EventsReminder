@@ -19,6 +19,7 @@ namespace EventsReminder.ViewModel
     {
         private SmtpClientModel smtpClient;
         public ObservableCollection<EventViewModel> Events { get; private set; }
+
         private bool ServiceStarted = false;
         public SolidColorBrush SmtpColor
         {
@@ -88,7 +89,7 @@ namespace EventsReminder.ViewModel
         {
             SmtpClientDB.init();
             smtpClient = SmtpClientDB.DefualtSmtpClientModel;
-            Console.WriteLine("smtpClient loaded from LiteDB successfully");
+            Console.WriteLine("smtpClient loaded from LiteDB");
             Events = new ObservableCollection<EventViewModel>();
             foreach (var item in eventModels)
             {
@@ -105,29 +106,31 @@ namespace EventsReminder.ViewModel
 
         private void ServiceTimer_Tick(object sender, EventArgs e)
         {
-            foreach (var item in Events)
+            try
             {
-                //Console.WriteLine("item.IsSending = " + item.IsSending + "): ");
-                if (item.Less1hourToStart && !item.EmailSentSuccessful && !item.IsSending)
+                foreach (var item in Events)
                 {
-                    string body = "Hi \n This Email sent for reminding event.\nEvent Subject : " + item.Subject + " Event Start Date Time " + item.Date + "\nDescription : \n   " + item.Description;
-                    SendEmail sendEmail = new SendEmail();
-                    string result = sendEmail.SendAsync(smtpClient.Host, smtpClient.Email, smtpClient.Password, item.Email, item.Subject, body, smtp_SendCompleted,item);
-                    if (result == "Sending")
+                    if (item.Less1hourToStart && !item.EmailSentSuccessful && !item.IsSending)
                     {
-                        item.IsSending = true;
-                        Console.WriteLine("Sending Email ... ");
-                        //item.EmailSentSuccessful = true;
-                        //EventDB.update(item.EventModel);
-                        //item.Refresh();
-                        //Console.WriteLine("Email has been sent successfully");
+                        string body = "Hi \n This Email sent for reminding event.\nEvent Subject : " + item.Subject + " Event Start Date Time " + item.Date + "\nDescription : \n   " + item.Description;
+                        SendEmail sendEmail = new SendEmail();
+                        string result = sendEmail.SendAsync(smtpClient.Host, smtpClient.Email, smtpClient.Password, item.Email, item.Subject, body, smtp_SendCompleted, item);
+                        if (result == "Sending")
+                        {
+                            item.IsSending = true;
+                            Console.WriteLine("Sending Email ... ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error sending email (Subject = " + item.Subject + "): " + result);
+                        }
                     }
-                    else
-                    {
-                        Console.WriteLine("Error sending email (Subject = " + item.Subject + "): " + result);
-                    }
+                    item.RefreshTimeToStart();
                 }
-                item.RefreshTimeToStart();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
         }
         private void smtp_SendCompleted(object sender, AsyncCompletedEventArgs e,EventViewModel eventViewModel)
@@ -137,14 +140,13 @@ namespace EventsReminder.ViewModel
 
                 eventViewModel.EmailSentSuccessful = false;
                 Console.WriteLine("Error sending email (Subject = " + eventViewModel .Subject + "): " + e.Error.ToString());
-                MessageBox.Show(e.Error.ToString(), "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 eventViewModel.EmailSentSuccessful = true;
                 EventDB.update(eventViewModel.EventModel);
                 eventViewModel.Refresh();
-                Console.WriteLine("Email (Subject = " + eventViewModel.Subject + ") has been sent successfully");
+                Console.WriteLine("Email (Subject = " + eventViewModel.Subject + ") has been sent");
             }
             eventViewModel.IsSending = false;
         }
@@ -171,7 +173,7 @@ namespace EventsReminder.ViewModel
             if (addEventWindow.ShowDialog(out newModel) == true)
             {
                 EventDB.insert(newModel);
-                Console.WriteLine("newModel inserted to LiteDB successfully");
+                Console.WriteLine("newModel inserted to LiteDB");
                 return true;
             }
             return false;
@@ -189,7 +191,7 @@ namespace EventsReminder.ViewModel
                 smtpClient.IsDefualt = true;
                 RefreshColorsAndContents();
                 SmtpClientDB.update(smtpClient);
-                Console.WriteLine("smtpClient update to LiteDB successfully");
+                Console.WriteLine("smtpClient update to LiteDB");
                 return true;
             }
             return false;

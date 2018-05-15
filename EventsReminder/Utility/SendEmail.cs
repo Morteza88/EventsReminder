@@ -14,39 +14,20 @@ namespace EventsReminder.Utility
 {
     public class SendEmail
     {
-        public string aaa = "assas";
         public delegate void Smtp_SendCompleted(object sender, AsyncCompletedEventArgs e);
-        public delegate void Smtp_SendCompleted2(object sender, AsyncCompletedEventArgs e, EventViewModel eventViewModel);
-        public static string Send(string host, string fromAddress, string password, string toAddress, string subject, string body)
+        public delegate void Smtp_SendCompleted_WhitEventView(object sender, AsyncCompletedEventArgs e, EventViewModel eventViewModel);
+        private Smtp_SendCompleted_WhitEventView smtp_SendCompleted_WhitEvent;
+        private EventViewModel eventView;
+        public string SendAsync(string host, string fromAddress, string password, string toAddress, string subject, string body, Smtp_SendCompleted_WhitEventView smtp_SendCompleted_WhitEventView, EventViewModel eventViewModel)
         {
-            try
-            {
-                SmtpClient smtp = new SmtpClient
-                {
-                    Host = host,
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new System.Net.NetworkCredential(fromAddress, password),
-                    Timeout = 30000,
-                };
-                MailMessage message = new MailMessage(fromAddress, toAddress, subject, body);
-                smtp.Send(message);
-                return "Sent Successfully";
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+            smtp_SendCompleted_WhitEvent = smtp_SendCompleted_WhitEventView;
+            eventView = eventViewModel;
+            return SendAsync(host, fromAddress, password, toAddress, subject, body, smtp_SendCompleted);
         }
-        Smtp_SendCompleted2 smtp_SendCompleted3;
-        EventViewModel eventView3;
-        public string SendAsync(string host, string fromAddress, string password, string toAddress, string subject, string body, Smtp_SendCompleted2 smtp_SendCompleted2, EventViewModel eventViewModel)
+        public string SendAsync(string host, string fromAddress, string password, string toAddress, string subject, string body, Smtp_SendCompleted smtp_SendCompleted)
         {
             try
             {
-                smtp_SendCompleted3 = smtp_SendCompleted2;
-                eventView3 = eventViewModel;
                 SmtpClient smtp = new SmtpClient
                 {
                     Host = host,
@@ -69,7 +50,30 @@ namespace EventsReminder.Utility
 
         private void smtp_SendCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            smtp_SendCompleted3(sender, e, eventView3);
+            smtp_SendCompleted_WhitEvent(sender, e, eventView);
         }
+
+        //public static string Send(string host, string fromAddress, string password, string toAddress, string subject, string body)
+        //{
+        //    try
+        //    {
+        //        SmtpClient smtp = new SmtpClient
+        //        {
+        //            Host = host,
+        //            Port = 587,
+        //            EnableSsl = true,
+        //            DeliveryMethod = SmtpDeliveryMethod.Network,
+        //            Credentials = new System.Net.NetworkCredential(fromAddress, password),
+        //            Timeout = 30000,
+        //        };
+        //        MailMessage message = new MailMessage(fromAddress, toAddress, subject, body);
+        //        smtp.Send(message);
+        //        return "Sent Successfully";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ex.Message;
+        //    }
+        //}
     }
 }

@@ -74,6 +74,13 @@ namespace EventsReminder.ViewModel
             }
         }
 
+        private bool isSending = false;
+        public bool IsSending
+        {
+            get { return isSending; }
+            set { isSending = value; }
+        }
+
         public SolidColorBrush BackgroundColor
         {
             get
@@ -106,13 +113,20 @@ namespace EventsReminder.ViewModel
         {
             get
             {
-                if (smtpClient.EmailSentSuccessful)
+                if (isSending)
                 {
-                    return " Email has been sent successfully ";
+                    return " Sending Email ... ";
                 }
                 else
                 {
-                    return " Send Email to someone for test ";
+                    if (smtpClient.EmailSentSuccessful)
+                    {
+                        return " Email has been sent successfully ";
+                    }
+                    else
+                    {
+                        return " Send Email for test ";
+                    }
                 }
             }
         }
@@ -134,7 +148,18 @@ namespace EventsReminder.ViewModel
         }
         public void SendEmailButton_Click()
         {
-            //SendEmail.SendAsync(SmtpClient.Host, smtpClient.Email, smtpClient.Password, "morteza88@live.com", "TestEmail", "This Email send by WpfAAppSample1 for test.", smtp_SendCompleted);
+            SendEmail sendEmail = new SendEmail();
+            string result = sendEmail.SendAsync(SmtpClient.Host, smtpClient.Email, smtpClient.Password, "morteza88@live.com", "TestEmail", "This Email send by WpfAAppSample1 for test.", smtp_SendCompleted);
+            if (result == "Sending")
+            {
+                IsSending = true;
+                Console.WriteLine("Sending Email ... ");
+            }
+            else
+            {
+                Console.WriteLine("Error sending email (Subject = " + "TestEmail" + "): " + result);
+            }
+            Refresh();
         }
         private void smtp_SendCompleted(object sender, AsyncCompletedEventArgs e)
         {
@@ -142,14 +167,15 @@ namespace EventsReminder.ViewModel
             {
                 EmailSentSuccessful = false;
                 Console.WriteLine("Error sending email (Subject = " + "TestEmail" + "): " + e.Error.ToString());
-                MessageBox.Show(e.Error.ToString(), "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show(e.Error.ToString(), "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 EmailSentSuccessful = true;
-                Refresh();
-                Console.WriteLine("Email (Subject = " + "TestEmail" + ") has been sent successfully");
+                Console.WriteLine("Email (Subject = " + "TestEmail" + ") has been sent");
             }
+            IsSending = false;
+            Refresh();
         }
     }
     public class SendEmailButtonClick : ICommand
