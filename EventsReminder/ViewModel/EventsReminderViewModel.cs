@@ -4,6 +4,7 @@ using EventsReminder.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,16 +107,20 @@ namespace EventsReminder.ViewModel
         {
             foreach (var item in Events)
             {
-                if (item.Less1hourToStart && !item.EmailSentSuccessful)
+                //Console.WriteLine("item.IsSending = " + item.IsSending + "): ");
+                if (item.Less1hourToStart && !item.EmailSentSuccessful && !item.IsSending)
                 {
                     string body = "Hi \n This Email sent for reminding event.\nEvent Subject : " + item.Subject + " Event Start Date Time " + item.Date + "\nDescription : \n   " + item.Description;
-                    string result = SendEmail.Send(SmtpClientDB.DefualtSmtpClientModel, item.Email, item.Subject, body);
-                    if (result == "Sent Successfully")
+                    SendEmail sendEmail = new SendEmail();
+                    string result = sendEmail.SendAsync(smtpClient.Host, smtpClient.Email, smtpClient.Password, item.Email, item.Subject, body, smtp_SendCompleted,item);
+                    if (result == "Sending")
                     {
-                        item.EmailSentSuccessful = true;
-                        EventDB.update(item.EventModel);
-                        item.Refresh();
-                        Console.WriteLine("Email has been sent successfully");
+                        item.IsSending = true;
+                        Console.WriteLine("Sending Email ... ");
+                        //item.EmailSentSuccessful = true;
+                        //EventDB.update(item.EventModel);
+                        //item.Refresh();
+                        //Console.WriteLine("Email has been sent successfully");
                     }
                     else
                     {
@@ -124,6 +129,24 @@ namespace EventsReminder.ViewModel
                 }
                 item.RefreshTimeToStart();
             }
+        }
+        private void smtp_SendCompleted(object sender, AsyncCompletedEventArgs e,EventViewModel eventViewModel)
+        {
+            if (e.Error != null)
+            {
+
+                eventViewModel.EmailSentSuccessful = false;
+                Console.WriteLine("Error sending email (Subject = " + eventViewModel .Subject + "): " + e.Error.ToString());
+                MessageBox.Show(e.Error.ToString(), "Error sending email", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                eventViewModel.EmailSentSuccessful = true;
+                EventDB.update(eventViewModel.EventModel);
+                eventViewModel.Refresh();
+                Console.WriteLine("Email (Subject = " + eventViewModel.Subject + ") has been sent successfully");
+            }
+            eventViewModel.IsSending = false;
         }
         public void Refresh(IEnumerable<EventModel> eventModels)
         {

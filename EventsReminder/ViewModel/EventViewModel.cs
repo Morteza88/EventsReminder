@@ -79,6 +79,13 @@ namespace EventsReminder.ViewModel
         public string Email { get { return eventModel.EmailToRecall; } set { eventModel.EmailToRecall = value; } }
         public string Description { get { return eventModel.Description; } set { eventModel.Description = value; } }
         public bool EmailSentSuccessful { get { return eventModel.EmailSentSuccessful; } set { eventModel.EmailSentSuccessful = value; } }
+        private bool isSending = false;
+
+        public bool IsSending
+        {
+            get { return isSending; }
+            set { isSending = value; }
+        }
 
         public SolidColorBrush BackgroundColor
         {
